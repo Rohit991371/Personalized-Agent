@@ -1,0 +1,165 @@
+PERSONAL INFORMATION
+===================
+
+Name: Rohit Gupta
+Email: rohit.gupta1604004@gmail.com
+Phone: +91 9973556808
+Current Location: Patia, Bhubaneswar 751024
+Permanent Address : Bara, Nepal
+LinkedIn: https://www.linkedin.com/in/rohitgupta1604/
+GitHub: https://github.com/Rohit991371
+Portfolio: https://www.rohitgupta1604.com.np/
+
+PROFESSIONAL SUMMARY
+==================
+Innovative software developer with hands-on experience in AI/ML, deep learning, and data science. Passionate about building intelligent, scalable systems and leveraging machine learning and automation to solve complex, real-world problems. Skilled in developing end-to-end ML pipelines, designing conversational AI solutions, and creating data-driven applications that deliver meaningful impact.
+TECHNICAL SKILLS
+===============
+
+Programming Languages:
+- Python (Intermediate)
+- JavaScript (Intermediate)
+- SQL (Intermediate)
+- HTML/CSS (Intermediate)
+
+Frameworks & Libraries:
+- LangChain
+- TensorFlow/PyTorch
+- Pandas/NumPy
+- Streamlit
+
+AI/ML Technologies:
+- Large Language Models (LLMs)
+- Retrieval Augmented Generation (RAG)
+- Natural Language Processing
+- Computer Vision
+- Machine Learning Algorithms
+- Vector Databases (Chroma, Pinecone)
+
+Databases:
+- MongoDB
+
+
+Tools & Technologies:
+- Git/GitHub
+- API Development
+
+CERTIFICATIONS
+=============
+- Data Science and Machine Learning - Edureka
+- Generative AI - Udemy(Instructer - Krish Naik) 
+- Agile Virtual Experience Program - JPMorgan Chase & Co.
+
+
+PROJECTS
+========
+
+1. Personal AI Assistant
+   -(This is the current AI Assistant that is being used now.)
+   - Developed a personalized AI agent for professional representation
+   - Integrated multiple data sources (resume, portfolio, GitHub)
+   - Built custom RAG pipeline for accurate information retrieval
+   - Technologies: Python, LangChain, HTML/CSS, Vector Embeddings
+   - Live Demo: 
+
+2. Conversational RAG System
+   - Built an intelligent document Q&A system using LangChain and Groq
+   - Implemented vector search with Chroma database
+   - Created responsive Streamlit interface
+   - Technologies: Python, LangChain, Groq, Streamlit, Chroma
+   - GitHub: https://github.com/Rohit991371/Conversational-RAG-
+
+3. COVID-19 Detection from Lung CT Scans using Attention-enhanced Xception Network
+   -Built a CT-scan image classification using Attention-mechanism and Xception Network as the feature extractor
+   -Used Extensive data Augmentation and preprocessing
+   -Achieved an accuracy of 97.86%
+   -GitHub: https://github.com/Rohit991371/Lungs-CT-scans-Classification
+
+4. Twitter Sentiment Analysis
+   -Built a sentiment analysis model using LSTM in Keras, achieving 80% accuracy on a dataset of 162,980 tweets.
+   -Implemented advanced text preprocessing techniques, including tokenization and feature extraction, reducing data
+   imbalance by 30%
+   -GitHub: https://github.com/Rohit991371/Tweeter-Sentiment-analysis
+
+5. Two Higgs Doublet Model Exploration
+   -Created  25 datasets (500K rows each) for the Two-Higgs-Doublet Model (2HDM) using given physics equations.
+   -Applied data balancing, feature engineering, and statistical techniques to handle high-dimensional, imbalanced datasets.
+   -Designed a neural network with regularization and dropout, achieving 15% higher accuracy in parameter constraint simulation
+   -GitHub: http://github.com/Rohit991371/Two-Higgs-Doublet-Model
+
+EDUCATION
+=========
+B.Tech in Computer Science and Engineering
+KIIT Deemed to be University, Patia, Bhubaneswar, Odisha, India, Pin Code: 751024, Final year
+- Relevant Coursework: Data Structures, Algorithms, Machine Learning
+- GPA: 8.89/10.0
+
+-Completed Class-12 from St.Xavier's Higher Secondary School, Parsa Nepal
+-Class 12 percentage is 83.33%
+
+-Completed Class-10 from Shree Maisthan Vidyapeeth Secondary School, Parsa Nepal
+-Class 10 percentage is 91.25%
+
+ACHIEVEMENTS
+===========
+- Led team of 5 developers in successful project delivery
+- Published and was speaker at 2nd International Conference on Circuits, Power, and Intelligent Systems (CCPIS) 2025 for paper titled "Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models"
+
+
+WORK EXPERIENCE
+==============
+- I'm a fresher
+
+LANGUAGES
+=========
+- English (Native/Fluent)
+- Hindi
+- Nepali
+
+INTERESTS & HOBBIES
+==================
+- Open Source Contribution
+- Machine Learning Research
+- Reading articles and research papers
+
+
+REFERENCES
+==========
+Available upon request
+
+SOCIAL MEDIA & LINKS
+===================
+- Twitter: https://x.com/RohitGu97434862
+- LeetCode: https://leetcode.com/u/user5493bS/
+
+ADDITIONAL NOTES
+===============
+- Available for relocation
+- Open to remote work opportunities
+- Authorized to work in India and Nepal
+- Notice period: 1 Month
+
+CONTACT PREFERENCES
+==================
+- Best time to reach: 9 AM - 6 PM 
+- Preferred communication: Email
+- Available for phone/video interviews: Yes
+- Portfolio presentations: Available upon request
+
+RECENT ACCOMPLISHMENTS (2024)
+============================
+- Completed advanced course in Large Language Models
+- Increased team productivity by 25% through process automation
+
+
+TECHNICAL EXPERTISE DETAILS
+===========================
+Python Expertise:
+- Advanced knowledge of data science libraries
+
+AI/ML Specialization:
+- Built 5+ machine learning models
+- Experience with GPT, BERT, and other transformer models
+
+
+Database Skills:
