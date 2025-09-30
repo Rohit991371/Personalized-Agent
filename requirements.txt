@@ -1,4 +1,5 @@
 langchain
+langchain_huggingface
 python-dotenv
 ipykernel
 langchain-community
