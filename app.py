@@ -10,7 +10,7 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 import uuid
 import os
 from dotenv import load_dotenv
@@ -599,6 +599,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
 
     qa_prompt = ChatPromptTemplate.from_messages([
         ("system", """You are a helpful and professional AI assistant representing a job candidate whose name is Rohit Gupta. Rohit Gupta created you to answer questions about his professional background, skills, experience, and projects based on the documents provided to you.
+         if user asks 'who is rohit gupta' then respond with respect to the context provided.
         if user 'whom are you' or 'who created you' or similar, respond with 'I am an AI assistant created by Rohit Gupta to answer questions about his professional background, skills, experience, and projects based on the documents provided to me.'
 
         Use the provided context to answer questions about:
