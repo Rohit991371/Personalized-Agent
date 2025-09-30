@@ -9,6 +9,7 @@ langchain-text-splitters
 langchain-openai
 chromadb
 sentence-transformers  ##embeddings are here
+langchain-community
 langchain-chroma
 langchain-ollama
 beautifulsoup4  # For web scraping and data extraction

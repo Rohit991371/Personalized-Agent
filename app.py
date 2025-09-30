@@ -10,6 +10,7 @@ from langchain.chains import create_history_aware_retriever, create_retrieval_ch
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
+from langchain_community.embeddings import HuggingFaceEmbeddings
 import uuid
 import os
 from dotenv import load_dotenv
@@ -345,14 +346,26 @@ PORTFOLIO_URL = "https://www.rohitgupta1604.com.np/"
 GITHUB_URL = "https://github.com/Rohit991371"
 
 
+# def get_embeddings():
+#     try:
+#         return OllamaEmbeddings(model="nomic-embed-text")
+#     except Exception as e:
+#         st.error(f"Error initializing embeddings: {e}")
+#         st.info(
+#             "Please make sure Ollama is running with the nomic-embed-text model installed.")
+#         st.stop()
+
 def get_embeddings():
     try:
-        return OllamaEmbeddings(model="nomic-embed-text")
+        return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     except Exception as e:
         st.error(f"Error initializing embeddings: {e}")
         st.info(
-            "Please make sure Ollama is running with the nomic-embed-text model installed.")
+            "Make sure the Hugging Face embedding model name is correct and that 'sentence-transformers' is installed.\n"
+            "Try: pip install sentence-transformers"
+        )
         st.stop()
+
 
 
 def get_llm():
