@@ -9,22 +9,16 @@ langchain-text-splitters
 langchain-openai
 chromadb
 sentence-transformers  ##embeddings are here
-langchain_huggingface
-faiss-cpu
 langchain-chroma
-langchain_ollama
-langchain_core
+langchain-ollama
 beautifulsoup4  # For web scraping and data extraction
 streamlit  # For building the web application
-langchain_groq
-langchain_core
+langchain-groq
+langchain-core
 fastapi  # For building the API
 langserve  # For serving the LangChain application
-sse_starlette  # For server-sent events support
 tensorflow-cpu
 validators
 unstructured
-pytube
-numexpr
 huggingface_hub
 python-magic-bin  # For Windows users

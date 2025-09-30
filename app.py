@@ -686,7 +686,6 @@ if st.session_state.agent_ready and st.session_state.retriever:
         cleanr = re.compile('<.*?>')
         cleantext = re.sub(cleanr, '', raw_html)
         return cleantext
-    
 
      # Process pending question from example buttons
     if st.session_state.pending_question:
@@ -737,7 +736,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
                     # Clean HTML tags from the response
                     cleaned_answer = clean_html(response['answer'])
                     st.markdown(cleaned_answer, unsafe_allow_html=True)
-                    
+
                     # st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
                     st.error(
