@@ -339,27 +339,31 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Configuration ---
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") 
-PORTFOLIO_URL = "https://www.rohitgupta1604.com.np/" 
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+PORTFOLIO_URL = "https://www.rohitgupta1604.com.np/"
 GITHUB_URL = "https://github.com/Rohit991371"
+
 
 def get_embeddings():
     try:
         return OllamaEmbeddings(model="nomic-embed-text")
     except Exception as e:
         st.error(f"Error initializing embeddings: {e}")
-        st.info("Please make sure Ollama is running with the nomic-embed-text model installed.")
+        st.info(
+            "Please make sure Ollama is running with the nomic-embed-text model installed.")
         st.stop()
+
 
 def get_llm():
     try:
         if GROQ_API_KEY == "your_groq_api_key_here" or not GROQ_API_KEY:
-            st.error("Please set your GROQ_API_KEY in the secrets or environment variables")
+            st.error(
+                "Please set your GROQ_API_KEY in the secrets or environment variables")
             st.info("Get your free API key from: https://console.groq.com/keys")
             st.stop()
-        
+
         return ChatGroq(
-            groq_api_key=GROQ_API_KEY, 
+            groq_api_key=GROQ_API_KEY,
             model_name="openai/gpt-oss-20b",  # Updated to available model
             temperature=0.1,
             max_tokens=1000
@@ -368,27 +372,28 @@ def get_llm():
         st.error(f"Error initializing LLM: {e}")
         st.stop()
 
+
 # --- Session State Initialization ---
 session_id = "personal_assistant_session"
 
 if "store" not in st.session_state:
     st.session_state.store = {}
-    
+
 if "vectorstore" not in st.session_state:
     st.session_state.vectorstore = None
-    
+
 if "retriever" not in st.session_state:
     st.session_state.retriever = None
 
 if "agent_ready" not in st.session_state:
     st.session_state.agent_ready = False
-    
+
 if "initial_load" not in st.session_state:
     st.session_state.initial_load = True
 
 if "sources_status" not in st.session_state:
     st.session_state.sources_status = []
-    
+
 if "pending_question" not in st.session_state:
     st.session_state.pending_question = None
 
@@ -405,6 +410,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Helper Functions ---
+
+
 def scrape_website(url):
     """Scrape content from a website."""
     try:
@@ -413,34 +420,37 @@ def scrape_website(url):
         }
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
-        
+
         soup = BeautifulSoup(response.content, 'html.parser')
-        
+
         # Remove script and style elements
         for script in soup(["script", "style"]):
             script.decompose()
-        
+
         # Get text content
         text = soup.get_text()
         lines = (line.strip() for line in text.splitlines())
-        chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+        chunks = (phrase.strip()
+                  for line in lines for phrase in line.split("  "))
         text = ' '.join(chunk for chunk in chunks if chunk)
-        
+
         return text[:15000]  # Limit to first 15k characters
-    
+
     except Exception as e:
         return None
+
 
 def load_all_documents():
     """Load all available documents"""
     documents = []
     sources_loaded = []
-    
+
     # Load local files
     data_dir = Path(".")
-    
+
     # Load resume
-    resume_files = list(data_dir.glob("*.pdf")) + list(data_dir.glob("*resume*.pdf")) + list(data_dir.glob("Rohit Gupta.pdf"))
+    resume_files = list(data_dir.glob(
+        "*.pdf")) + list(data_dir.glob("*resume*.pdf")) + list(data_dir.glob("Rohit Gupta.pdf"))
     if resume_files:
         try:
             loader = PyPDFLoader(str(resume_files[0]))
@@ -453,47 +463,53 @@ def load_all_documents():
             sources_loaded.append(f"❌ Resume: {str(e)}")
     else:
         sources_loaded.append("❌ Resume: No PDF files found")
-    
+
     # Load personal info
-    info_files = list(data_dir.glob("personal_info.txt")) + list(data_dir.glob("info.txt"))
+    info_files = list(data_dir.glob("personal_info.txt")) + \
+        list(data_dir.glob("info.txt"))
     if info_files:
         try:
             with open(info_files[0], 'r', encoding='utf-8') as f:
                 content = f.read()
             from langchain.schema import Document
-            doc = Document(page_content=content, metadata={'source': 'personal_info'})
+            doc = Document(page_content=content, metadata={
+                           'source': 'personal_info'})
             documents.append(doc)
             sources_loaded.append("✅ Personal Information (TXT)")
         except Exception as e:
             sources_loaded.append(f"❌ Personal Info: {str(e)}")
     else:
         sources_loaded.append("❌ Personal Info: No personal_info.txt found")
-    
+
     # Load portfolio website
     if PORTFOLIO_URL:
         content = scrape_website(PORTFOLIO_URL)
         if content:
             from langchain.schema import Document
-            doc = Document(page_content=content, metadata={'source': 'portfolio_website', 'url': PORTFOLIO_URL})
+            doc = Document(page_content=content, metadata={
+                           'source': 'portfolio_website', 'url': PORTFOLIO_URL})
             documents.append(doc)
             sources_loaded.append("✅ Portfolio Website")
         else:
             sources_loaded.append("❌ Portfolio Website (failed to scrape)")
-    
+
     # Load GitHub profile
     if GITHUB_URL:
         content = scrape_website(GITHUB_URL)
         if content:
             from langchain.schema import Document
-            doc = Document(page_content=content, metadata={'source': 'github_profile', 'url': GITHUB_URL})
+            doc = Document(page_content=content, metadata={
+                           'source': 'github_profile', 'url': GITHUB_URL})
             documents.append(doc)
             sources_loaded.append("✅ GitHub Profile")
         else:
             sources_loaded.append("❌ GitHub Profile (failed to scrape)")
-    
+
     return documents, sources_loaded
 
 # --- Initialize Agent on First load ---
+
+
 def initialize_agent():
     """Initialize the agent with all data sources."""
     try:
@@ -501,7 +517,7 @@ def initialize_agent():
             embeddings = get_embeddings()
             llm = get_llm()
             documents, sources = load_all_documents()
-            
+
             if documents:
                 # Text splitting
                 text_splitter = RecursiveCharacterTextSplitter(
@@ -510,33 +526,35 @@ def initialize_agent():
                     separators=["\n\n", "\n", " ", ""]
                 )
                 texts = text_splitter.split_documents(documents)
-                
+
                 # Create vector store
-                vectorstore = Chroma.from_documents(texts, embeddings, collection_name=f"personal_assistant_{int(time.time())}")
-                retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 6})
+                vectorstore = Chroma.from_documents(
+                    texts, embeddings, collection_name=f"personal_assistant_{int(time.time())}")
+                retriever = vectorstore.as_retriever(
+                    search_type="similarity", search_kwargs={"k": 6})
 
                 st.session_state.vectorstore = vectorstore
                 st.session_state.retriever = retriever
                 st.session_state.sources_status = sources
-                
+
                 st.session_state.agent_ready = True
                 return True, sources
             else:
                 st.session_state.agent_ready = False
                 st.session_state.sources_status = sources
                 return False, sources
-        
+
     except Exception as e:
         st.session_state.agent_ready = False
         error_msg = f"❌ Initialization error: {str(e)}"
         st.session_state.sources_status = [error_msg]
         return False, [error_msg]
 
+
 # Initialize agent if needed
 if st.session_state.initial_load or not st.session_state.agent_ready:
     success, sources = initialize_agent()
     st.session_state.initial_load = False
-
 
 
 for source in st.session_state.sources_status:
@@ -551,7 +569,7 @@ st.markdown("</div></div>", unsafe_allow_html=True)
 if st.session_state.agent_ready and st.session_state.retriever:
     retriever = st.session_state.retriever
     llm = get_llm()
-    
+
     # Custom system prompt for personal assistant
     contextualize_q_prompt = ChatPromptTemplate.from_messages([
         ("system", """You are a personal AI assistant representing a professional candidate whose name is Rohit Gupta. 
@@ -562,9 +580,10 @@ if st.session_state.agent_ready and st.session_state.retriever:
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
     ])
-    
-    history_aware_retriever = create_history_aware_retriever(llm, retriever, contextualize_q_prompt)
-    
+
+    history_aware_retriever = create_history_aware_retriever(
+        llm, retriever, contextualize_q_prompt)
+
     qa_prompt = ChatPromptTemplate.from_messages([
         ("system", """You are a helpful and professional AI assistant representing a job candidate whose name is Rohit Gupta. Rohit Gupta created you to answer questions about his professional background, skills, experience, and projects based on the documents provided to you. 
         if user 'whom are you' or 'who created you' or similar, respond with 'I am an AI assistant created by Rohit Gupta to answer questions about his professional background, skills, experience, and projects based on the documents provided to me.'
@@ -598,15 +617,15 @@ if st.session_state.agent_ready and st.session_state.retriever:
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
     ])
-    
+
     qa_chain = create_stuff_documents_chain(llm, qa_prompt)
     rag_chain = create_retrieval_chain(history_aware_retriever, qa_chain)
-    
+
     def get_session_history(session: str) -> BaseChatMessageHistory:
         if session_id not in st.session_state.store:
             st.session_state.store[session_id] = ChatMessageHistory()
         return st.session_state.store[session_id]
-    
+
     conversational_rag_chain = RunnableWithMessageHistory(
         rag_chain,
         get_session_history,
@@ -614,13 +633,11 @@ if st.session_state.agent_ready and st.session_state.retriever:
         history_messages_key="chat_history",
         output_messages_key="answer"
     )
-    
+
     # Display chat history
     history = get_session_history(session_id)
-    
-    
-    
-        # =======================================================
+
+    # =======================================================
     # Show example questions if no chat history
     if not history.messages:
         st.markdown("""
@@ -628,7 +645,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
             <h3>💡 Here are some questions you can ask:</h3>
         </div>
         """, unsafe_allow_html=True)
-        
+
         # Define example questions
         example_questions = [
             "What are your key technical skills?",
@@ -640,8 +657,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
             "What programming languages do you know?",
             "Describe your work experience"
         ]
-        
-        
+
     # Create columns for buttons
         cols = st.columns(2)
         for idx, question in enumerate(example_questions):
@@ -649,10 +665,9 @@ if st.session_state.agent_ready and st.session_state.retriever:
                 if st.button(question, key=f"example_q_{idx}", use_container_width=True):
                     st.session_state.pending_question = question
                     st.rerun()
-                    
+
 
 # =======================================================
-
 
     # Display chat history
     for msg in history.messages:
@@ -662,18 +677,17 @@ if st.session_state.agent_ready and st.session_state.retriever:
         elif msg.type == "ai":
             with st.chat_message("assistant"):
                 st.markdown(msg.content)
-    
-    
-    #======================================================
+
+    # ======================================================
      # Process pending question from example buttons
     if st.session_state.pending_question:
         user_input = st.session_state.pending_question
         st.session_state.pending_question = None
-        
+
         # Display user message
         with st.chat_message("user"):
             st.markdown(user_input)
-        
+
         # Generate and display assistant response
         with st.chat_message("assistant"):
             with st.spinner("🤔 Thinking..."):
@@ -684,20 +698,22 @@ if st.session_state.agent_ready and st.session_state.retriever:
                     )
                     st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
-                    st.error(f"I encountered an error processing your question: {str(e)}")
+                    st.error(
+                        f"I encountered an error processing your question: {str(e)}")
                     st.info("Please try asking your question again or rephrase it.")
-        
+
         st.rerun()
-    #======================================================
-    
+    # ======================================================
+
     # Chat input
-    user_input = st.chat_input("Ask me anything about my background, skills, projects, or experience...")
-    
+    user_input = st.chat_input(
+        "Ask me anything about my background, skills, projects, or experience...")
+
     if user_input:
         # Display user message
         with st.chat_message("user"):
             st.markdown(user_input)
-        
+
         # Generate and display assistant response
         with st.chat_message("assistant"):
             with st.spinner("🤔 Thinking..."):
@@ -708,29 +724,36 @@ if st.session_state.agent_ready and st.session_state.retriever:
                     )
                     st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
-                    st.error(f"I encountered an error processing your question: {str(e)}")
+                    st.error(
+                        f"I encountered an error processing your question: {str(e)}")
                     st.info("Please try asking your question again or rephrase it.")
-        
+
         st.rerun()
 
 else:
     # Show features and status when agent is not ready
     if st.session_state.sources_status:
-        error_sources = [s for s in st.session_state.sources_status if s.startswith("❌")]
+        error_sources = [
+            s for s in st.session_state.sources_status if s.startswith("❌")]
         if error_sources:
-            st.markdown('<div class="error-container">', unsafe_allow_html=True)
+            st.markdown('<div class="error-container">',
+                        unsafe_allow_html=True)
             st.error("⚠️ **Setup Required**")
             st.markdown("The following issues need to be resolved:")
             for error in error_sources:
                 st.markdown(f"• {error.replace('❌ ', '')}")
-            
+
             st.markdown("**Quick Setup Instructions:**")
-            st.markdown("1. Add your resume as a PDF file in the project folder")
-            st.markdown("2. Create a `personal_info.txt` file with your details")
-            st.markdown("3. Make sure Ollama is running with `nomic-embed-text` model")
-            st.markdown("4. Set your GROQ_API_KEY in secrets or environment variables")
+            st.markdown(
+                "1. Add your resume as a PDF file in the project folder")
+            st.markdown(
+                "2. Create a `personal_info.txt` file with your details")
+            st.markdown(
+                "3. Make sure Ollama is running with `nomic-embed-text` model")
+            st.markdown(
+                "4. Set your GROQ_API_KEY in secrets or environment variables")
             st.markdown('</div>', unsafe_allow_html=True)
-    
+
     # Show features
     st.markdown("""
     <div class="features-grid">
@@ -759,7 +782,7 @@ else:
         </div>
     </div>
     """, unsafe_allow_html=True)
-    
+
     # Refresh button
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
