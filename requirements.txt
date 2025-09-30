@@ -21,4 +21,4 @@ tensorflow-cpu
 validators
 unstructured
 huggingface_hub
-python-magic-bin  # For Windows users
+python-magic
