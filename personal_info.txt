@@ -60,7 +60,7 @@ PROJECTS
    - Integrated multiple data sources (resume, portfolio, GitHub)
    - Built custom RAG pipeline for accurate information retrieval
    - Technologies: Python, LangChain, HTML/CSS, Vector Embeddings
-   - Live Demo: 
+   - GitHub: https://github.com/Rohit991371/Personalized-Agent 
 
 2. Conversational RAG System
    - Built an intelligent document Q&A system using LangChain and Groq
