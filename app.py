@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import requests
 from bs4 import BeautifulSoup
 import time
+import re
 from pathlib import Path
 
 load_dotenv()
@@ -35,20 +36,20 @@ st.markdown("""
     .stApp > header {
         background-color: transparent;
     }
-    
+
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     .stApp > div:first-child {
         margin-top: -80px;
     }
-    
+
     /* Main container styling */
     .main-container {
         max-width: 1000px;
         margin: 0 auto;
         padding: 2rem;
     }
-    
+
     /* Header styling */
     .header-container {
         text-align: center;
@@ -59,21 +60,21 @@ st.markdown("""
         margin-bottom: 2rem;
         box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
-    
+
     .header-title {
         font-size: 3rem;
         font-weight: 700;
         margin: 0;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     }
-    
+
     .header-subtitle {
         font-size: 1.3rem;
         margin-top: 1rem;
         opacity: 0.9;
         font-weight: 300;
     }
-    
+
     .header-description {
         font-size: 1.1rem;
         margin-top: 1.5rem;
@@ -83,7 +84,7 @@ st.markdown("""
         margin-right: auto;
         line-height: 1.6;
     }
-    
+
     /* Status indicators */
     .status-container {
         background: white;
@@ -93,13 +94,13 @@ st.markdown("""
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         border: 1px solid #e1e8ed;
     }
-    
+
     .status-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1rem;
     }
-    
+
     .status-item {
         display: flex;
         align-items: center;
@@ -108,22 +109,22 @@ st.markdown("""
         border-radius: 10px;
         border-left: 4px solid #28a745;
     }
-    
+
     .status-item.error {
         border-left-color: #dc3545;
     }
-    
+
     .status-icon {
         font-size: 1.5rem;
         margin-right: 1rem;
     }
-    
+
     .status-text {
         font-weight: 500;
         font-size: 0.95rem;
         color: #333;
     }
-    
+
     /* Chat container styling */
     .chat-container {
         background: white;
@@ -134,7 +135,7 @@ st.markdown("""
         border: 1px solid #e1e8ed;
         margin-bottom: 2rem;
     }
-    
+
     .chat-title {
         text-align: center;
         font-size: 2rem;
@@ -142,7 +143,7 @@ st.markdown("""
         color: #333;
         margin-bottom: 1rem;
     }
-    
+
     .chat-description {
         text-align: center;
         color: #666;
@@ -150,7 +151,7 @@ st.markdown("""
         margin-bottom: 2rem;
         line-height: 1.6;
     }
-    
+
     /* Example questions styling */
     .example-questions {
         background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -159,21 +160,21 @@ st.markdown("""
         margin-bottom: 2rem;
         color: white;
     }
-    
+
     .example-questions h3 {
         text-align: center;
         margin-bottom: 1.5rem;
         font-size: 1.5rem;
         font-weight: 600;
     }
-    
+
     .questions-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1rem;
         text-align: center;
     }
-    
+
     /* Style example question buttons */
     div[data-testid="column"] > div > div > button[key^="example_q_"] {
         background: rgba(255,255,255,0.2) !important;
@@ -186,7 +187,7 @@ st.markdown("""
         transition: all 0.3s ease !important;
         backdrop-filter: blur(10px) !important;
     }
-    
+
     div[data-testid="column"] > div > div > button[key^="example_q_"]:hover {
         background: rgba(255,255,255,0.3) !important;
         transform: translateY(-2px) !important;
@@ -207,14 +208,14 @@ st.markdown("""
         border: 1px solid rgba(255,255,255,0.3);
         backdrop-filter: blur(10px);
     }
-    
+
     .question-tag:hover {
         background: rgba(255,255,255,0.3);
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     ==================================*/
-    
+
     /* Features grid styling */
     .features-grid {
         display: grid;
@@ -222,7 +223,7 @@ st.markdown("""
         gap: 2rem;
         margin: 2rem 0;
     }
-    
+
     .feature-card {
         background: white;
         padding: 2rem;
@@ -232,31 +233,31 @@ st.markdown("""
         border: 1px solid #e1e8ed;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
+
     .feature-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     }
-    
+
     .feature-icon {
         font-size: 3rem;
         margin-bottom: 1rem;
         display: block;
     }
-    
+
     .feature-card h3 {
         color: #333;
         font-size: 1.3rem;
         font-weight: 600;
         margin-bottom: 1rem;
     }
-    
+
     .feature-card p {
         color: #666;
         font-size: 1rem;
         line-height: 1.6;
     }
-    
+
     /* Error/Loading states */
     .error-container {
         background: #f8d7da;
@@ -266,7 +267,7 @@ st.markdown("""
         border-radius: 10px;
         margin: 1rem 0;
     }
-    
+
     .loading-container {
         background: #d1ecf1;
         border: 1px solid #bee5eb;
@@ -276,7 +277,7 @@ st.markdown("""
         margin: 1rem 0;
         text-align: center;
     }
-    
+
     /*=========================== commented out old chat styles
     /* Chat message styling */
     .stChatMessage {
@@ -285,7 +286,7 @@ st.markdown("""
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     =========================*/
-    
+
     /* Push chat input to bottom */
     .stChatFloatingInputContainer {
         position: sticky;
@@ -294,19 +295,19 @@ st.markdown("""
         padding: 1rem 0;
         z-index: 999;
     }
-    
+
     /* Add space for footer */
     .main .block-container {
         padding-bottom: 1rem;
     }
-    
+
     /* Chat message styling */
     .stChatMessage {
         border-radius: 15px;
         margin-bottom: 1rem;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    
+
     /* Button styling */
     .stButton > button {
         border-radius: 25px;
@@ -317,12 +318,12 @@ st.markdown("""
         color: white;
         transition: all 0.3s ease;
     }
-    
+
     .stButton > button:hover {
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
     }
-    
+
     /* Input styling */
     .stTextInput > div > div > input {
         border-radius: 15px;
@@ -330,7 +331,7 @@ st.markdown("""
         padding: 1rem;
         font-size: 1rem;
     }
-    
+
     .stTextInput > div > div > input:focus {
         border-color: #667eea;
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -572,10 +573,10 @@ if st.session_state.agent_ready and st.session_state.retriever:
 
     # Custom system prompt for personal assistant
     contextualize_q_prompt = ChatPromptTemplate.from_messages([
-        ("system", """You are a personal AI assistant representing a professional candidate whose name is Rohit Gupta. 
+        ("system", """You are a personal AI assistant representing a professional candidate whose name is Rohit Gupta.
         If user 'whom are you' or 'who created you' or similar, respond with 'I am an AI assistant created by Rohit Gupta to answer questions about his professional background, skills, experience, and projects based on the documents provided to me.'
-        Given the chat history and the latest user question, formulate a standalone question 
-        that captures the full context needed to answer about the candidate's background, 
+        Given the chat history and the latest user question, formulate a standalone question
+        that captures the full context needed to answer about the candidate's background,
         skills, experience, or projects."""),
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
@@ -585,18 +586,18 @@ if st.session_state.agent_ready and st.session_state.retriever:
         llm, retriever, contextualize_q_prompt)
 
     qa_prompt = ChatPromptTemplate.from_messages([
-        ("system", """You are a helpful and professional AI assistant representing a job candidate whose name is Rohit Gupta. Rohit Gupta created you to answer questions about his professional background, skills, experience, and projects based on the documents provided to you. 
+        ("system", """You are a helpful and professional AI assistant representing a job candidate whose name is Rohit Gupta. Rohit Gupta created you to answer questions about his professional background, skills, experience, and projects based on the documents provided to you.
         if user 'whom are you' or 'who created you' or similar, respond with 'I am an AI assistant created by Rohit Gupta to answer questions about his professional background, skills, experience, and projects based on the documents provided to me.'
-        
+
         Use the provided context to answer questions about:
-        
+
         - Professional background and work experience
-        - Technical skills, programming languages, and certifications  
+        - Technical skills, programming languages, and certifications
         - Projects, achievements, and accomplishments
         - Contact information, social media, and portfolio links
         - Educational background and qualifications
         - Any other relevant professional information
-        
+
         IMPORTANT GUIDELINES:
         - Don't provide information about Rohit's private github repositories or inaccessible links. Only give information about public repositories.
         - Only answer based on the provided context from the candidate's documents
@@ -612,7 +613,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
         - Use line breaks (double space) instead of <br> tags
         - Do NOT use HTML tags like <br>, <div>, <span>, etc.
 
-        
+
         Context: {context}"""),
         MessagesPlaceholder("chat_history"),
         ("human", "{input}")
@@ -679,6 +680,14 @@ if st.session_state.agent_ready and st.session_state.retriever:
                 st.markdown(msg.content)
 
     # ======================================================
+
+    def clean_html(raw_html):
+        """Removes HTML tags from a string."""
+        cleanr = re.compile('<.*?>')
+        cleantext = re.sub(cleanr, '', raw_html)
+        return cleantext
+    
+
      # Process pending question from example buttons
     if st.session_state.pending_question:
         user_input = st.session_state.pending_question
@@ -696,7 +705,10 @@ if st.session_state.agent_ready and st.session_state.retriever:
                         {"input": user_input},
                         config={"configurable": {"session_id": session_id}}
                     )
-                    st.markdown(response['answer'], unsafe_allow_html=True)
+                    # Clean HTML tags from the response
+                    cleaned_answer = clean_html(response['answer'])
+                    st.markdown(cleaned_answer, unsafe_allow_html=True)
+                    # st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
                     st.error(
                         f"I encountered an error processing your question: {str(e)}")
@@ -722,7 +734,11 @@ if st.session_state.agent_ready and st.session_state.retriever:
                         {"input": user_input},
                         config={"configurable": {"session_id": session_id}}
                     )
-                    st.markdown(response['answer'], unsafe_allow_html=True)
+                    # Clean HTML tags from the response
+                    cleaned_answer = clean_html(response['answer'])
+                    st.markdown(cleaned_answer, unsafe_allow_html=True)
+                    
+                    # st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
                     st.error(
                         f"I encountered an error processing your question: {str(e)}")
