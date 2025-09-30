@@ -340,7 +340,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Configuration ---
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") or st.secrets.get("GROQ_API_KEY")
 PORTFOLIO_URL = "https://www.rohitgupta1604.com.np/"
 GITHUB_URL = "https://github.com/Rohit991371"
 
