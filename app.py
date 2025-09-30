@@ -681,11 +681,18 @@ if st.session_state.agent_ready and st.session_state.retriever:
 
     # ======================================================
 
-    def clean_html(raw_html):
-        """Removes HTML tags from a string."""
-        cleanr = re.compile('<.*?>')
-        cleantext = re.sub(cleanr, '', raw_html)
-        return cleantext
+    # def clean_html(raw_html):
+    #     """Removes HTML tags from a string."""
+    #     cleanr = re.compile('<.*?>')
+    #     cleantext = re.sub(cleanr, '', raw_html)
+    #     return cleantext
+
+    def remove_html_tags(raw_html):
+        """Removes HTML tags from a string using BeautifulSoup."""
+        if raw_html:
+            soup = BeautifulSoup(raw_html, "html.parser")
+            return soup.get_text()
+        return ""
 
      # Process pending question from example buttons
     if st.session_state.pending_question:
@@ -705,7 +712,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
                         config={"configurable": {"session_id": session_id}}
                     )
                     # Clean HTML tags from the response
-                    cleaned_answer = clean_html(response['answer'])
+                    cleaned_answer = remove_html_tags(response['answer'])
                     st.markdown(cleaned_answer, unsafe_allow_html=True)
                     # st.markdown(response['answer'], unsafe_allow_html=True)
                 except Exception as e:
@@ -734,7 +741,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
                         config={"configurable": {"session_id": session_id}}
                     )
                     # Clean HTML tags from the response
-                    cleaned_answer = clean_html(response['answer'])
+                    cleaned_answer = remove_html_tags(response['answer'])
                     st.markdown(cleaned_answer, unsafe_allow_html=True)
 
                     # st.markdown(response['answer'], unsafe_allow_html=True)
