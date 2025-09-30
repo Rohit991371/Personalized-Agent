@@ -586,6 +586,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
     # Custom system prompt for personal assistant
     contextualize_q_prompt = ChatPromptTemplate.from_messages([
         ("system", """You are a personal AI assistant representing a professional candidate whose name is Rohit Gupta.
+        If user asks 'who is rohit gupta' then respond with respect to the context provided.
         If user 'whom are you' or 'who created you' or similar, respond with 'I am an AI assistant created by Rohit Gupta to answer questions about his professional background, skills, experience, and projects based on the documents provided to me.'
         Given the chat history and the latest user question, formulate a standalone question
         that captures the full context needed to answer about the candidate's background,
