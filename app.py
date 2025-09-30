@@ -367,7 +367,6 @@ def get_embeddings():
         st.stop()
 
 
-
 def get_llm():
     try:
         if GROQ_API_KEY == "your_groq_api_key_here" or not GROQ_API_KEY:

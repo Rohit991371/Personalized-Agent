@@ -8,7 +8,7 @@ pymupdf
 langchain-text-splitters
 langchain-openai
 chromadb
-sentence-transformers==2.2.2
+sentence-transformers
 tf-keras
 langchain-community
 langchain-chroma
