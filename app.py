@@ -1,24 +1,61 @@
-import streamlit as st
-from langchain_groq import ChatGroq
-from langchain_community.document_loaders import PyPDFLoader, TextLoader
-from langchain_ollama.embeddings import OllamaEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_huggingface import HuggingFaceEmbeddings
-import uuid
+
 import os
-from dotenv import load_dotenv
-import requests
-from bs4 import BeautifulSoup
+import uuid
 import time
 import re
 from pathlib import Path
+
+# External Utilities
+import requests
+import streamlit as st
+from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+
+
+# --- LANGCHAIN CORE (The Stable Foundation) ---
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain_core.chat_history import BaseChatMessageHistory
+
+
+# --- LANGCHAIN COMMUNITY (Third-party integrations) ---
+from langchain_community.document_loaders import PyPDFLoader, TextLoader
+from langchain_community.chat_message_histories import ChatMessageHistory
+
+
+# --- LANGCHAIN PARTNER PACKAGES ---
+from langchain_groq import ChatGroq
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+
+# --- LANGCHAIN CHAINS (Fixed imports for 0.3.x) ---
+from langchain.chains.retrieval import create_retrieval_chain
+from langchain.chains.history_aware_retriever import create_history_aware_retriever
+from langchain.chains.combine_documents.stuff import create_stuff_documents_chain
+
+# import streamlit as st
+# from langchain_groq import ChatGroq
+# from langchain_community.document_loaders import PyPDFLoader, TextLoader
+# from langchain_ollama.embeddings import OllamaEmbeddings
+# from langchain_text_splitters import RecursiveCharacterTextSplitter
+# from langchain_chroma import Chroma
+# from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+# from langchain.chains.combine_documents import create_stuff_documents_chain
+# from langchain.chains import create_history_aware_retriever, create_retrieval_chain
+# from langchain_core.runnables.history import RunnableWithMessageHistory
+# from langchain_core.chat_history import BaseChatMessageHistory
+# from langchain_community.chat_message_histories import ChatMessageHistory
+# from langchain_huggingface import HuggingFaceEmbeddings
+# import uuid
+# import os
+# from dotenv import load_dotenv
+# import requests
+# from bs4 import BeautifulSoup
+# import time
+# import re
+# from pathlib import Path
 
 load_dotenv()
 
@@ -357,7 +394,17 @@ GITHUB_URL = "https://github.com/Rohit991371"
 
 def get_embeddings():
     try:
-        return HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+        # Suppress TensorFlow warnings and use PyTorch backend only
+        os.environ['USE_TORCH'] = '1'
+        os.environ['TRANSFORMERS_NO_TF'] = '1'
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+        
+        return HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-MiniLM-L6-v2",
+            model_kwargs={'device': 'cpu'},
+            encode_kwargs={'normalize_embeddings': True}
+        )
+
     except Exception as e:
         st.error(f"Error initializing embeddings: {e}")
         st.info(
