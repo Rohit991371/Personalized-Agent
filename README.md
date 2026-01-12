@@ -17,7 +17,8 @@ This AI assistant can answer questions about my background, skills, projects, an
 
 ---
 
-## 🛠️ Tech Stack
+## 🔗You can try it using this link: https://rohit991371-personalized-agent-app-5sqmdf.streamlit.app/
+
 
 | Component | Technology |
 |----------|------------|
