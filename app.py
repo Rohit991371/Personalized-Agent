@@ -5,6 +5,17 @@ import time
 import re
 from pathlib import Path
 
+import warnings
+os.environ['USE_TORCH'] = '1'
+os.environ['TRANSFORMERS_NO_TF'] = '1'
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+os.environ['ANONYMIZED_TELEMETRY'] = 'False'
+os.environ['CHROMA_TELEMETRY'] = 'False'
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings('ignore', category=DeprecationWarning)
+
+
 # External Utilities
 import requests
 import streamlit as st
@@ -733,7 +744,7 @@ if st.session_state.agent_ready and st.session_state.retriever:
             return soup.get_text()
         return ""
 
-     # Process pending question from example buttons
+    # Process pending question from example buttons
     if st.session_state.pending_question:
         user_input = st.session_state.pending_question
         st.session_state.pending_question = None
