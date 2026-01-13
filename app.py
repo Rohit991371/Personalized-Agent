@@ -11,6 +11,9 @@ os.environ['TRANSFORMERS_NO_TF'] = '1'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ['ANONYMIZED_TELEMETRY'] = 'False'
 os.environ['CHROMA_TELEMETRY'] = 'False'
+
+warnings.filterwarnings('ignore')
+
 warnings.filterwarnings('ignore', category=UserWarning)
 warnings.filterwarnings('ignore', category=FutureWarning)
 warnings.filterwarnings('ignore', category=DeprecationWarning)
@@ -413,7 +416,8 @@ def get_llm():
 
         return ChatGroq(
             groq_api_key=GROQ_API_KEY,
-            model_name="openai/gpt-oss-20b",  # Updated to available model
+            # model_name="openai/gpt-oss-20b",  # Updated to available model
+            model_name="llama-3.3-70b-versatile",  # Updated to available model
             temperature=0.1,
             max_tokens=1000
         )
