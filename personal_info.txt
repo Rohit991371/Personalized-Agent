@@ -142,7 +142,7 @@ KIIT Deemed to be University, Patia, Bhubaneswar, Odisha, India, Pin Code: 75102
 ACHIEVEMENTS
 ===========
 - Led team of 5 developers in successful project delivery
-- Published and was speaker at 2nd International Conference on Circuits, Power, and Intelligent Systems (CCPIS) 2025 for paper titled "Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models"
+- Published and was speaker at 2nd International Conference on Circuits, Power, and Intelligent Systems (CCPIS) 2025   for paper titled "Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models"
 
 
 WORK EXPERIENCE
