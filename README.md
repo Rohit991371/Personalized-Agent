@@ -1,90 +1,156 @@
-# 🤖 Personal AI Assistant - Interactive Resume Agent
+# 🚀 **Personalized AI Agent**
 
-A  **RAG (Retrieval-Augmented Generation)** powered chatbot that serves as an **interactive resume and professional portfolio**.  
-This AI assistant can answer questions about my background, skills, projects, and experience based on my actual documents and online presence.
-
----
-
-## 🚀 Features
-
-- 📚 **Multi-Source Knowledge Base:** Integrates data from PDF resume, personal info files, portfolio website, and GitHub profile.  
-- 🧠 **Intelligent Q&A:** Uses RAG architecture to provide accurate, context-aware responses.  
-- 💬 **Natural Conversations:** Maintains chat history for coherent and contextual discussions.  
-- 🎨 **Modern UI:** Clean, professional interface similar to ChatGPT or Claude.  
-- ⚡ **One-Click Questions:** Pre-loaded example questions for quick interaction.  
-- 🌐 **Real-time Web Scraping:** Automatically fetches the latest info from my online profiles.  
-- 💼 **Professional Presentation:** Perfect for sharing with recruiters and potential employers.
+> AI-powered professional assistant built using RAG, LLMs, and custom data pipelines
 
 ---
 
-## 🔗You can try it using this link: https://rohit991371-personalized-agent-app-5sqmdf.streamlit.app/
+## 📌 **Overview**
 
+This project is a **Personalized AI Assistant** designed to act as a digital representation of me.
+It intelligently answers queries about my **skills, experience, projects, and background** by leveraging a **Retrieval-Augmented Generation (RAG)** pipeline.
 
-| Component | Technology |
-|----------|------------|
-| **Frontend** | Streamlit |
-| **LLM** | Groq (openai/gpt-oss-20b) |
-| **Framework** | LangChain |
-| **Embeddings** | Ollama (`nomic-embed-text`) |
-| **Vector Store** | ChromaDB |
-| **Web Scraping** | BeautifulSoup4, Requests |
+Unlike generic chatbots, this system is:
+
+* Context-aware
+* Data-driven
+* Continuously extendable
+
+---
+Link: https://rohit991371-personalized-agent-app-5sqmdf.streamlit.app/
+
+---
+## 🎯 **Key Features**
+
+✨ Personalized responses based on real data (resume, GitHub, portfolio)
+✨ Custom **RAG pipeline** for accurate information retrieval
+✨ Multi-source data integration
+✨ Conversational interface
+✨ Scalable architecture for future AI agents
 
 ---
 
-## 📦 Prerequisites
+## 🧠 **How It Works**
 
-- 🐍 Python **3.8+**
-- 🦙 [Ollama](https://ollama.com/) installed and running
-- 🔑 Groq API key (free tier available)
+1. Data is collected from:
 
----
+   * Resume
+   * Portfolio
+   * GitHub
+   * Custom text files
 
-## 📁 Add Your Personal Data
+2. Data is:
 
-Place the following files in the project root:
+   * Processed
+   * Converted into embeddings
+   * Stored in a **vector database**
 
-- **`Rohit Gupta.pdf`** – Resume  
-- **`personal_info.txt`** – A text file with my details (name, email, GitHub, etc.)
+3. User query flow:
 
----
+   ```
+   Query → Embedding → Similarity Search → Context Retrieval → LLM Response
+   ```
 
-## 🧠 RAG Architecture (How It Works)
-
-The system uses **Retrieval-Augmented Generation (RAG)** to answer queries with accurate, personalized context:
-
-1. 📄 Split documents into manageable chunks.  
-2. 🧬 Create vector embeddings using **Ollama**.  
-3. 🗃️ Store embeddings in **ChromaDB** vector database.  
-4. 🔍 Retrieve relevant context for each query.  
-5. 🤖 Generate responses using **Groq LLM** with the retrieved context.
+4. The LLM generates **context-aware, personalized answers**
 
 ---
 
-## 🔗 Multi-Source Integration
+## 🛠️ **Tech Stack**
 
-- 📑 **PDF Resume:** Parsed with `PyPDF2`  
-- 📁 **Personal Info:** Loaded from `personal_info.txt`  
-- 🌐 **Portfolio Website:** Scraped using `BeautifulSoup`  
-- 🐙 **GitHub Profile:** Public data fetched and parsed automatically
-
----
-
-## 🧵 Conversation Memory
-
-The chatbot maintains a full conversation history using LangChain’s message memory, enabling:
-
-- 💬 Context-aware follow-up questions  
-- 🔁 Natural, human-like conversation flow  
-- 📚 Reference to previous questions for deeper discussions
+| Category      | Tools Used                    |
+| ------------- | ----------------------------- |
+| Language      | Python                        |
+| LLM Framework | LangChain                     |
+| Embeddings    | Vector Embeddings             |
+| Frontend      | Streamlit                     |
+| Backend       | Python                        |
+| Database      | Vector DB (Chroma) |
 
 ---
 
-## 🤝 Contributing
+## 📂 **Project Structure**
 
-Contributions are welcome! 🙌  
-To contribute:
+```
+Personalized-Agent/
+│── app.py                 # Main application
+│── utils/                 # Helper functions
+│── templates/             # Frontend UI
+│── personal_info.txt      # Core personal dataset
+│── requirements.txt
+```
 
-1. 🍴 Fork the repository  
-2. 🌱 Create your feature branch:  
-   ```bash
-   git checkout -b feature/AmazingFeature
+---
+
+## ⚙️ **Installation & Setup**
+
+### 1️⃣ Clone the repository
+
+```bash
+git clone https://github.com/Rohit991371/Personalized-Agent.git
+cd Personalized-Agent
+```
+
+### 2️⃣ Create virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate   # (Linux/Mac)
+venv\Scripts\activate      # (Windows)
+```
+
+### 3️⃣ Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Run the application
+
+```bash
+python app.py
+```
+
+---
+
+## 📊 **Use Cases**
+
+* Personal AI portfolio assistant
+* Resume-based chatbot
+* Developer showcase tool
+* AI-powered professional branding
+
+---
+
+## 👨‍💻 **About Me**
+
+**Rohit Gupta**
+AI/ML Engineer | Data Analytics | LLM Applications
+
+* 🎓 B.Tech CSE (2026) – CGPA: 8.96
+* 💼 Former Intern @ Viasat India
+* 🔬 Research Intern @ IIT Gandhinagar
+* 📄 Published Author (IEEE CCPIS 2025)
+
+🔗 [LinkedIn](https://www.linkedin.com/in/rohitgupta1604/)
+🔗 [Portfolio](https://www.rohitgupta1604.com.np/)
+
+---
+
+## ⭐ **Why This Project Stands Out**
+
+This is not just another chatbot — it’s a **real-world implementation of:**
+
+* Retrieval-Augmented Generation (RAG)
+* Personal data intelligence systems
+* Scalable AI assistant architecture
+
+It demonstrates both:
+✔ Strong ML/AI fundamentals
+✔ Practical system design skills
+
+---
+
+## 🤝 **Contributions**
+
+Contributions, suggestions, and feedback are welcome!
+
+---
