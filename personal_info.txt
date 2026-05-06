@@ -4,7 +4,7 @@ PERSONAL INFORMATION
 Name: Rohit Gupta
 Email: rohit.gupta1604004@gmail.com
 Phone: +91 9973556808
-Current Location: Patia, Bhubaneswar 751024
+Current Location: Nepal
 Permanent Address : Bara, Nepal
 LinkedIn: https://www.linkedin.com/in/rohitgupta1604/
 GitHub: https://github.com/Rohit991371
@@ -12,7 +12,35 @@ Portfolio: https://www.rohitgupta1604.com.np/
 
 PROFESSIONAL SUMMARY
 ==================
-Innovative software developer with hands-on experience in AI/ML, deep learning, and data science. Passionate about building intelligent, scalable systems and leveraging machine learning and automation to solve complex, real-world problems. Skilled in developing end-to-end ML pipelines, designing conversational AI solutions, and creating data-driven applications that deliver meaningful impact.
+Computer Science graduate with strong experience in Machine Learning, Data Analytics, and AI systems, including research and industry exposure. Skilled in building end-to-end data pipelines, customer segmentation models, and intelligent systems using ML and LLMs. Interested in solving real-world problems through data-driven decision-making and scalable AI solutions.
+
+
+WORK EXPERIENCE
+===========================
+
+1. Software Engineering / Data Analytics Intern
+
+Viasat India | Feb 2026 – Apr 2026
+
+Designed and implemented an end-to-end analytics pipeline transforming multi-source data into a unified customer dataset
+Built segmentation, scoring, and ranking models using feature engineering and normalized metrics
+Developed data-driven use cases for customer prioritization and targeted business strategies
+Applied normalization, percentile bucketing, and weighted scoring techniques for robust segmentation
+Integrated demographic and behavioral signals to enhance decision-making accuracy
+Built Tableau dashboards for visualization of insights and stakeholder reporting
+Ensured data quality via validation, missing value handling, and consistency checks
+Delivered actionable insights enabling business teams to optimize customer engagement
+Summer Research Intern
+
+2. IIT Gandhinagar, Ahmedabad | May 2024 – Jul 2024
+
+Worked on Two Higgs Doublet Model (2HDM) data-driven research
+Generated and analyzed 25 large-scale datasets (500K rows each) using physics-based equations
+Applied data balancing, feature engineering, and statistical techniques for high-dimensional data
+Designed a neural network with regularization & dropout, improving accuracy by 15%
+Produced detailed research reports, visualizations, and insights
+Strengthened expertise in scientific ML applications and analytical modeling
+
 TECHNICAL SKILLS
 ===============
 
@@ -87,12 +115,23 @@ PROJECTS
    -Designed a neural network with regularization and dropout, achieving 15% higher accuracy in parameter constraint simulation
    -GitHub: http://github.com/Rohit991371/Two-Higgs-Doublet-Model
 
+
+PUBLICATION
+=============================================
+Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models
+📍 CCPIS 2025 (IEEE Conference)
+🔗 https://ieeexplore.ieee.org/document/11233861
+
+Achieved 97.86% accuracy and 96.82% precision
+Applied transfer learning, attention mechanisms, and augmentation
+
+
 EDUCATION
 =========
 B.Tech in Computer Science and Engineering
 KIIT Deemed to be University, Patia, Bhubaneswar, Odisha, India, Pin Code: 751024, Final year
 - Relevant Coursework: Data Structures, Algorithms, Machine Learning
-- GPA: 8.89/10.0
+- GPA: 8.96/10.0
 
 -Completed Class-12 from St.Xavier's Higher Secondary School in 2021, Parsa Nepal
 -Class 12 percentage is 83.33%
@@ -103,7 +142,7 @@ KIIT Deemed to be University, Patia, Bhubaneswar, Odisha, India, Pin Code: 75102
 ACHIEVEMENTS
 ===========
 - Led team of 5 developers in successful project delivery
-- Published and was speaker at 2nd International Conference on Circuits, Power, and Intelligent Systems (CCPIS) 2025 for paper titled "Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models"
+- Published and was speaker at 2nd International Conference on Circuits, Power, and Intelligent Systems (CCPIS) 2025   for paper titled "Enhancing COVID-19 CT Image Classification with Attention-Augmented Pretrained Models"
 
 
 WORK EXPERIENCE
