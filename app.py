@@ -416,8 +416,8 @@ def get_llm():
 
         return ChatGroq(
             groq_api_key=GROQ_API_KEY,
-            # model_name="openai/gpt-oss-20b",  # Updated to available model
-            model_name="llama-3.3-70b-versatile",  # Updated to available model
+            model_name="openai/gpt-oss-20b",  # Updated to available model
+            # model_name="llama-3.3-70b-versatile",  # Updated to available model
             temperature=0.1,
             max_tokens=1000
         )
